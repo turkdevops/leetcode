@@ -3,23 +3,22 @@ package leetcode.problems;
 public class P974 {
 
     public int subarraysDivByK(int[] A, int K) {
-        if (A == null || A.length == 0) {
-            return 0;
+        int len = A.length;
+        int[] P = new int[len+1];
+        for (int i = 0; i < len; ++i) {
+            P[i+1] = P[i] + A[i];
         }
-        else {
-            int c = 0;
 
-            for (int i = 0; i < A.length; ++i) {
-                int sum = 0;
-                for (int j = i; j < A.length; ++j) {
-                    sum += A[j];
-                    if (sum % K == 0) {
-                        c++;
-                    }
-                }
-            }
-
-            return c;
+        int[] count = new int[K];
+        for (int p : P) {
+            count[(p % K + K) % K]++;
         }
+
+        int rv = 0;
+        for (int c : count) {
+            rv += c * (c - 1) / 2;
+        }
+
+        return rv;
     }
 }
