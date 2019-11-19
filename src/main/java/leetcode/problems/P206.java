@@ -3,17 +3,15 @@ package leetcode.problems;
 public class P206 {
 
     public ListNode reverseList(ListNode head) {
-        ListNode prev = null;
-        ListNode curr = head;
-        while (curr != null) {
-            ListNode next = curr.next;
+        if (head == null || head.next == null) return head;
 
-            curr.next = prev;
-            prev = curr;
-            curr = next;
-        }
+        ListNode next = head.next;
+        ListNode subHead = reverseList(next);
 
-        return prev;
+        next.next = head;
+        head.next = null;
+
+        return subHead;
     }
 
     public static class ListNode {
