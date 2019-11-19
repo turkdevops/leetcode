@@ -1,5 +1,7 @@
 package leetcode.problems;
 
+import leetcode.datastructure.list.singly.ListNode;
+
 public class P206 {
 
     public ListNode reverseList(ListNode head) {
@@ -12,14 +14,5 @@ public class P206 {
         head.next = null;
 
         return subHead;
-    }
-
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
     }
 }
