@@ -7,17 +7,18 @@ public class P121 {
             return 0;
         }
 
-        // min price and max profit so far
-        int[][] dp = new int[prices.length][2];
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
 
-        dp[0][0] = prices[0];
-        dp[0][1] = 0;
-
-        for (int i = 1; i < prices.length; ++i) {
-            dp[i][0] = Math.min(dp[i-1][0], prices[i]);
-            dp[i][1] = Math.max(dp[i-1][1], prices[i] - dp[i-1][0]);
+        for (int price : prices) {
+            if (price < minPrice) {
+                minPrice = price;
+            }
+            else if (price - minPrice > maxProfit) {
+                maxProfit = price - minPrice;
+            }
         }
 
-        return dp[prices.length-1][1];
+        return maxProfit;
     }
 }
