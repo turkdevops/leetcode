@@ -1,8 +1,6 @@
 package leetcode.problems;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class P15 {
@@ -18,19 +16,17 @@ public class P15 {
         for (int ai = 0; ai < length - 2; ++ai) {
             int a = nums[ai];
 
-            for (int bi = ai + 1; bi < length - 1; ++bi) {
+            Set<Integer> visited = new HashSet<>(length - 2);
+            for (int bi = ai + 1; bi < length; ++bi) {
                 int b = nums[bi];
-
-                for (int ci = bi + 1; ci < length; ++ci) {
-                    int c = nums[ci];
-
-                    if (a + b + c == 0) {
-                        if (! contains(solutions, a, b, c)) {
-                            solutions.add(new int[]{a, b, c});
-                        }
-
-                        break;
+                int c = 0 - a - b;
+                if (visited.contains(c)) {
+                    if (! contains(solutions, a, c, b)) {
+                        solutions.add(new int[] {a, c, b});
                     }
+                }
+                else {
+                    visited.add(b);
                 }
             }
         }
