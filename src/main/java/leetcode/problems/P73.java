@@ -1,28 +1,28 @@
 package leetcode.problems;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class P73 {
 
     public void setZeroes(int[][] matrix) {
         if (matrix == null || matrix.length == 0) return;
 
-        Set<Integer> rows = new HashSet<>();
-        Set<Integer> columns = new HashSet<>();
+        int rowSize = matrix.length;
+        int columnSize = matrix[0].length;
 
-        for (int ri = 0; ri < matrix.length; ++ri) {
-            for (int ci = 0; ci < matrix[0].length; ++ci) {
+        boolean[] zeroRows = new boolean[rowSize];
+        boolean[] zeroColumns = new boolean[columnSize];
+
+        for (int ri = 0; ri < rowSize; ++ri) {
+            for (int ci = 0; ci < columnSize; ++ci) {
                 if (matrix[ri][ci] == 0) {
-                    rows.add(ri);
-                    columns.add(ci);
+                    zeroRows[ri] = true;
+                    zeroColumns[ci] = true;
                 }
             }
         }
 
         for (int ri = 0; ri < matrix.length; ++ri) {
             for (int ci = 0; ci < matrix[0].length; ++ci) {
-                if (rows.contains(ri) || columns.contains(ci)) {
+                if (zeroRows[ri] || zeroColumns[ci]) {
                     matrix[ri][ci] = 0;
                 }
             }
