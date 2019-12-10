@@ -10,19 +10,12 @@ public class P49 {
         Map<String, List<String>> groupedAnagrams = new HashMap<>();
 
         for (String s : strs) {
-            boolean exists = false;
-            for (Map.Entry<String, List<String>> entry : groupedAnagrams.entrySet()) {
-                if (isAnagram(s, entry.getKey())) {
-                    entry.getValue().add(s);
-                    exists = true;
-                }
-            }
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String sorted = String.valueOf(chars);
 
-            if (! exists) {
-                List<String> anagrams = new ArrayList<>();
-                anagrams.add(s);
-                groupedAnagrams.put(s, anagrams);
-            }
+            List<String> anagrams = groupedAnagrams.computeIfAbsent(sorted, k -> new ArrayList<>());
+            anagrams.add(s);
         }
 
         return new ArrayList<>(groupedAnagrams.values());
