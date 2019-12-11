@@ -9,27 +9,16 @@ public class P3 {
         if (s == null || s.isEmpty()) return 0;
 
         int length = s.length();
-        Map<Character, Integer> indexes = new HashMap<>(length);
+        Map<Character, Integer> dropCounts = new HashMap<>(length);
 
         int longest = 0;
-        int beginIndex = 0;
-
-        for (int i = 0; i < length; ++i) {
-            Integer oldIndex = indexes.put(s.charAt(i), i);
-            if (oldIndex != null) {
-                longest = Math.max(longest, i - beginIndex);
-
-                // remove from [beginIndex, oldIndex)
-                // do not need to remove oldIndex since it is replaced with i
-                for (int bi = beginIndex; bi < oldIndex; ++bi) {
-                    indexes.remove(s.charAt(bi));
-                }
-
-                beginIndex = oldIndex + 1;
+        for (int dropCount = 0, i = 0; i < length; ++i) {
+            Integer oldDropCount = dropCounts.put(s.charAt(i), i + 1);
+            if (oldDropCount != null) {
+                dropCount = Math.max(dropCount, oldDropCount);
             }
-            else if (i == length - 1) {
-                longest = Math.max(longest, i - beginIndex + 1);
-            }
+
+            longest = Math.max(longest, i + 1 - dropCount);
         }
 
         return longest;
