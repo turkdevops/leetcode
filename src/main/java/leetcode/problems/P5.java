@@ -11,13 +11,14 @@ public class P5 {
         int longest = 0;
 
         for (int si = 0; si < length; ++si) {
-            for (int ei = si; ei < length; ++ei) {
+            for (int ei = length - 1; ei >= si; --ei) {
                 if (isPalindrome(s, si, ei)) {
                     int len = ei - si + 1;
                     if (len > longest) {
                         longest = len;
                         begin = si;
                     }
+                    break;
                 }
             }
         }
