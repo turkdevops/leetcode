@@ -19,6 +19,6 @@ public class P371Test {
 
     private void test(int a, int b) {
         int sum = new P371().getSum(a, b);
-        Assert.assertEquals(a + b, sum);
+        Assert.assertEquals("Assert " + a + " + " + b, a + b, sum);
     }
 }
