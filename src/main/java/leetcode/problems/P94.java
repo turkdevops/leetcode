@@ -4,20 +4,28 @@ import leetcode.datastructure.tree.binary.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class P94 {
 
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> values = new ArrayList<>();
-        recursiveTraversal(root, values);
+
+        Stack<TreeNode> stack = new Stack<>();
+
+        TreeNode curr = root;
+
+        while (curr != null || ! stack.isEmpty()) {
+            while (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+
+            curr = stack.pop();
+            values.add(curr.val);
+            curr = curr.right;
+        }
+
         return values;
-    }
-
-    private void recursiveTraversal(TreeNode root, List<Integer> values) {
-        if (root == null) return;
-
-        recursiveTraversal(root.left, values);
-        values.add(root.val);
-        recursiveTraversal(root.right, values);
     }
 }
